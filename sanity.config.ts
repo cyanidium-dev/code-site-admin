@@ -10,7 +10,19 @@ export default defineConfig({
   projectId: '9yuix50x',
   dataset: 'production',
 
-  plugins: [structureTool(), visionTool()],
+  plugins: [
+    structureTool({
+      structure: (S) =>
+        S.list()
+          .title('Контент')
+          .items([
+            S.listItem()
+              .title('Блог')
+              .child(S.documentList().title('Статті блогу').filter('_type == "post"')),
+          ]),
+    }),
+    visionTool(),
+  ],
 
   schema: {
     types: schemaTypes,
